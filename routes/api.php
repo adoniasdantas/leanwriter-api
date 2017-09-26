@@ -24,3 +24,5 @@ Route::group(['prefix' => '/v1', 'middleware' => 'auth'], function() {
     Route::resource('obra', 'ObraController');
     Route::resource('obra.capitulo', 'CapituloController');
 });
+
+Route::post('register', 'Auth\RegisterController@register');
