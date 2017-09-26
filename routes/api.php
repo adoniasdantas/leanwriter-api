@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::resource('obra', 'ObraController');
-Route::resource('obra.capitulo', 'CapituloController');
+Route::group(['prefix' => '/v1', 'middleware' => 'auth'], function() {
+    Route::get('/', function() {
+        return Auth::user();
+    });
+    Route::resource('obra', 'ObraController');
+    Route::resource('obra.capitulo', 'CapituloController');
+});
