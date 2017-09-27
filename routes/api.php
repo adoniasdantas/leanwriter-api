@@ -25,3 +25,4 @@ Route::group(['prefix' => '/v1', 'middleware' => 'auth:api'], function() {
 
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');
