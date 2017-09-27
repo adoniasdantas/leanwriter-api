@@ -18,4 +18,9 @@ class Obra extends Model
     {
         return $this->hasMany(Capitulo::class, 'obra_id');
     }
+
+    public function categorias()
+    {
+        return $this->belongsToMany(Categoria::class, 'obra_categoria', 'obra_id', 'categoria_id');
+    }
 }
