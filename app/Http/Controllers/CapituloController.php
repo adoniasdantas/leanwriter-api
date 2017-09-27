@@ -13,9 +13,9 @@ class CapituloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($obraId)
+    public function index()
     {
-        return Obra::findOrFail($obraId)->capitulos;
+        return Capitulo::all()->jsonSerialize();
     }
 
     /**
@@ -45,9 +45,9 @@ class CapituloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($obraId, $capituloId)
+    public function show(Capitulo $capitulo)
     {
-        return Capitulo::findOrFail($capituloId);
+        return $capitulo;
     }
 
     /**

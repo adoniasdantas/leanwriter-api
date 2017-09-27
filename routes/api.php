@@ -17,12 +17,11 @@ use Illuminate\Support\Facades\Auth;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['prefix' => '/v1', 'middleware' => 'auth'], function() {
-    Route::get('/', function() {
-        return Auth::user();
-    });
+Route::group(['prefix' => '/v1', 'middleware' => 'auth:api'], function() {
+
     Route::resource('obra', 'ObraController');
-    Route::resource('obra.capitulo', 'CapituloController');
+    Route::resource('capitulo', 'CapituloController');
 });
 
 Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
