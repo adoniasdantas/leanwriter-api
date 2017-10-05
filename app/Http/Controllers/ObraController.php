@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class obraController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -77,7 +83,15 @@ class obraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $obra = Obra::findOrFail($id);
+
+        $obra->update([
+            'titulo' => $request->get('titulo'),
+            'descricao' => $request->get('descricao'),
+        ]);
+
+        return response()->json($obra, 200);
+
     }
 
     /**
@@ -88,6 +102,10 @@ class obraController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $obra = Obra::find($id);
+
+        $obra->delete();
+
+        return 204;
     }
 }

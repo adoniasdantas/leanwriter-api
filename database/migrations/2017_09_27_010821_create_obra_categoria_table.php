@@ -17,8 +17,8 @@ class CreateObraCategoriaTable extends Migration
             $table->increments('id');
             $table->integer('obra_id')->unsigned();
             $table->integer('categoria_id')->unsigned();
-            $table->foreign('obra_id')->references('id')->on('obras');
-            $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->foreign('obra_id')->references('id')->on('obras')->onDelete('cascade');
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->timestamps();
         });
     }

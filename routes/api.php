@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::group(['prefix' => '/v1'], function() {
 
-    Route::resource('obra', 'ObraController');
-    Route::resource('capitulo', 'CapituloController');
+    Route::resource('obras', 'ObraController');
+    Route::resource('obras.capitulos', 'CapituloController');
 });
 
 Route::post('register', 'Auth\RegisterController@register')->middleware('guest');
