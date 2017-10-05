@@ -14,15 +14,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::group(['prefix' => '/v1', 'middleware' => 'auth:api'], function() {
+Route::group(['prefix' => '/v1'], function() {
 
     Route::resource('obra', 'ObraController');
     Route::resource('capitulo', 'CapituloController');
 });
 
-Route::post('register', 'Auth\RegisterController@register');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
+Route::post('register', 'Auth\RegisterController@register')->middleware('guest');
+Route::post('login', 'Auth\LoginController@login')->middleware('guest');
+Route::post('logout', 'Auth\LoginController@logout')->middleware('auth');

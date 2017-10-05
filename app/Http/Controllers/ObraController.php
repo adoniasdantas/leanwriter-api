@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Obra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class obraController extends Controller
 {
@@ -35,7 +36,14 @@ class obraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::guard()->user();
+        $obra = Obra::create([
+            'titulo' => $request->get('titulo'),
+            'descricao' => $request->get('descricao'),
+            'user_id' => $user->id,
+        ]);
+
+        return response()->json($obra, 201);
     }
 
     /**

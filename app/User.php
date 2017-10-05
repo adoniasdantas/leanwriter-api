@@ -33,4 +33,9 @@ class User extends Authenticatable
         $this->save();
         return $this->api_token;
     }
+
+    public function obras()
+    {
+        return $this->hasMany(Obra::class);
+    }
 }
