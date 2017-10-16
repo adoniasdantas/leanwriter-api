@@ -18,8 +18,7 @@ Route::group(['prefix' => '/v1'], function() {
 
     Route::resource('obras', 'ObraController');
     Route::resource('obras.capitulos', 'CapituloController');
+    Route::post('register', 'Auth\RegisterController@register')->middleware('guest');
+    Route::post('login', 'Auth\LoginController@login')->middleware('guest');
+    Route::post('logout', 'Auth\LoginController@logout')->middleware('auth');
 });
-
-Route::post('register', 'Auth\RegisterController@register')->middleware('guest');
-Route::post('login', 'Auth\LoginController@login')->middleware('guest');
-Route::post('logout', 'Auth\LoginController@logout')->middleware('auth');
