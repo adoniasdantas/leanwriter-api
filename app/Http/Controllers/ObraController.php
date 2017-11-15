@@ -58,9 +58,9 @@ class obraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Obra $obra)
     {
-        return Obra::findOrFail($id);
+        return response()->json(['obra' => $obra->jsonSerialize()]);
     }
 
     /**
@@ -90,7 +90,7 @@ class obraController extends Controller
             'descricao' => $request->get('descricao'),
         ]);
 
-        return response()->json($obra, 200);
+        return response()->json(['obra' =>$obra], 201);
 
     }
 
