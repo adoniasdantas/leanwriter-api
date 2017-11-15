@@ -11,7 +11,7 @@ class obraController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
 
     /**
@@ -21,7 +21,7 @@ class obraController extends Controller
      */
     public function index()
     {
-        return Obra::all()->jsonSerialize();
+        return response()->json(['obras' => Obra::all()->jsonSerialize()]);
     }
 
     /**
@@ -42,14 +42,14 @@ class obraController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::guard()->user();
+        $user = Auth::guard('api')->user();
         $obra = Obra::create([
             'titulo' => $request->get('titulo'),
             'descricao' => $request->get('descricao'),
             'user_id' => $user->id,
         ]);
 
-        return response()->json($obra, 201);
+        return response()->json(['obra' =>$obra], 201);
     }
 
     /**
