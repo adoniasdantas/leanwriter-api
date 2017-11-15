@@ -8,14 +8,22 @@ use Illuminate\Http\Request;
 
 class CapituloController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($obra_id)
     {
-        return Capitulo::all()->jsonSerialize();
+        $obra = Obra::with("capitulos")->findOrFail($obra_id);
+
+        return response()->json(["obra" => $obra]);
     }
 
     /**
@@ -34,9 +42,16 @@ class CapituloController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Obra $obra)
     {
-        //
+        $capitulo = Capitulo::create([
+            'numero' => $request->get('numero'),
+            'titulo' => $request->get('titulo'),
+            'texto' => $request->get('texto'),
+            'obra_id' => $obra->id,
+        ]);
+
+        return response()->json(["capitulo" => $capitulo, "obra" => $obra]);
     }
 
     /**
@@ -45,9 +60,9 @@ class CapituloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Capitulo $capitulo)
+    public function show(Obra $obra, Capitulo $capitulo)
     {
-        return $capitulo;
+        return response()->json(["capitulo" => $capitulo, "obra" => $obra]);
     }
 
     /**
@@ -68,9 +83,15 @@ class CapituloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Obra $obra, Capitulo $capitulo)
     {
-        //
+        $capitulo->update([
+            'numero' => $request->get('numero'),
+            'titulo' => $request->get('titulo'),
+            'texto' => $request->get('texto'),
+        ]);
+
+        return response()->json(["capitulo" => $capitulo, "obra" => $obra]);
     }
 
     /**
@@ -79,8 +100,10 @@ class CapituloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Obra $obra, Capitulo $capitulo)
     {
-        //
+        $capitulo->delete();
+
+        return 204;
     }
 }
