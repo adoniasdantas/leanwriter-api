@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Obra;
 use App\Capitulo;
+use App\Feedback;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
@@ -16,7 +19,7 @@ class FeedbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($capitulo_id)
+    public function index($obra_id, $capitulo_id)
     {
         $capitulo = Capitulo::with("feedbacks")->findOrFail($capitulo_id);
 
