@@ -60,9 +60,13 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Obra $obra, Capitulo $capitulo, Feedback $feedback)
     {
-        //
+        return response()->json([
+            "obra" => $obra,
+            "capitulo" => $capitulo,
+            "feedback" => $feedback
+        ]);
     }
 
     /**
