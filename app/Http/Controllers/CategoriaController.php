@@ -30,7 +30,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -41,7 +41,11 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categoria = Categoria::create([
+            'nome' => $request->get('nome'),
+        ]);
+
+        return response()->json(['categoria' => $categoria], 201);
     }
 
     /**
