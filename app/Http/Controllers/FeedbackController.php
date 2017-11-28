@@ -106,8 +106,10 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Obra $obra, Capitulo $capitulo, Feedback $feedback)
     {
-        //
+        $feedback->delete();
+
+        return 204;
     }
 }
