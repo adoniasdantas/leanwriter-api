@@ -42,9 +42,16 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Obra $obra, Capitulo $capitulo)
     {
-        //
+        $user = Auth::guard('api')->user();
+        $feedback = Feedback::create([
+            'texto' => $request->get('texto'),
+            'user_id' => $user->id,
+            'capitulo_id' => $capitulo->id,
+        ]);
+
+        return response()->json(["capitulo" => $capitulo, "feedback" => $feedback]);
     }
 
     /**
