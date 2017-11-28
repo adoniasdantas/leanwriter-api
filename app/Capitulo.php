@@ -12,4 +12,9 @@ class Capitulo extends Model
     {
         return $this->belongsTo(Obra::class);
     }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
 }
