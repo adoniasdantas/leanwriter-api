@@ -87,9 +87,17 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Obra $obra, Capitulo $capitulo, Feedback $feedback)
     {
-        //
+        $feedback->update([
+            'texto' => $request->get('texto'),
+        ]);
+
+        return response()->json([
+            "obra" => $obra,
+            "capitulo" => $capitulo,
+            "feedback" => $feedback
+        ]);
     }
 
     /**
