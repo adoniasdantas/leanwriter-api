@@ -79,7 +79,13 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+
+        $categoria->update([
+            'nome' => $request->get('nome'),
+        ]);
+
+        return response()->json(['categoria' =>$categoria], 201);
     }
 
     /**
