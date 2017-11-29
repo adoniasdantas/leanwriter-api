@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Obra;
 use Illuminate\Http\Request;
 
 class ComentarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($obra_id)
     {
-        //
+        $obra = Obra::with("comentarios")->findOrFail($obra_id);
+
+        return response()->json(["obra" => $obra]);
     }
 
     /**
