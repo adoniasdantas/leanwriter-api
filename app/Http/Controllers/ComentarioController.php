@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Obra;
+use App\Comentario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ComentarioController extends Controller
 {
@@ -40,9 +42,16 @@ class ComentarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Obra $obra)
     {
-        //
+        $user = Auth::guard('api')->user();
+        $comentario = Comentario::create([
+            'texto' => $request->get('texto'),
+            'obra_id' => $obra->id,
+            'user_id' => $user->id,
+        ]);
+
+        return response()->json(["comentario" => $comentario, "obra" => $obra]);
     }
 
     /**
