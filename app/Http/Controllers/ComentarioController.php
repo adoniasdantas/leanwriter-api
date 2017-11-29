@@ -89,9 +89,13 @@ class ComentarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Obra $obra, Comentario $comentario)
     {
-        //
+        $comentario->update([
+            'texto' => $request->get('texto'),
+        ]);
+
+        return response()->json(["comentario" => $comentario, "obra" => $obra]);
     }
 
     /**
