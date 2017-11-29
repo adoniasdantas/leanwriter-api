@@ -23,4 +23,9 @@ class Obra extends Model
     {
         return $this->belongsToMany(Categoria::class, 'obra_categoria', 'obra_id', 'categoria_id');
     }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }
