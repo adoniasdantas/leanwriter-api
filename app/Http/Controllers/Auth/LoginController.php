@@ -63,7 +63,7 @@ class LoginController extends Controller
             $user->generateToken();
 
             return response()->json([
-                'usuario' => $user->toArray(),
+                'usuario' => array_merge($user->toArray(), ['api_token' =>$user->api_token])
             ]);
         }
 

@@ -22,7 +22,7 @@ class ComentarioController extends Controller
      */
     public function index($obra_id)
     {
-        $obra = Obra::with("comentarios")->findOrFail($obra_id);
+        $obra = Obra::with("comentarios.usuario")->findOrFail($obra_id);
 
         return response()->json(["obra" => $obra]);
     }
