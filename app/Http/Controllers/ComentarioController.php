@@ -104,8 +104,10 @@ class ComentarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Obra $obra, Comentario $comentario)
     {
-        //
+        $comentario->delete();
+
+        return 204;
     }
 }
