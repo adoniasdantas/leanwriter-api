@@ -18,6 +18,7 @@ Route::group(['prefix' => '/v1'], function() {
 
     Route::resource('obras', 'ObraController');
     Route::resource('obras.capitulos', 'CapituloController');
+    Route::resource('obras.comentarios', 'ComentarioController');
     Route::resource('obras.capitulos.feedbacks', 'FeedbackController');
     Route::resource('categorias', 'CategoriaController');
     Route::post('register', 'Auth\RegisterController@register')->middleware('guest');
