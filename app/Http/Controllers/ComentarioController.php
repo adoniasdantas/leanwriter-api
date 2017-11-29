@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Obra;
+use App\User;
 use App\Comentario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,9 +61,14 @@ class ComentarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Obra $obra, Comentario $comentario)
     {
-        //
+
+        return response()->json([
+            "comentario" => $comentario,
+            "obra" => $obra,
+            "autor" => User::select('name', 'email')->find($comentario->user_id)
+        ]);
     }
 
     /**
