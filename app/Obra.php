@@ -11,7 +11,7 @@ class Obra extends Model
 
     public function autor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function capitulos()
