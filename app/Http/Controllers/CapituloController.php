@@ -60,8 +60,10 @@ class CapituloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Obra $obra, Capitulo $capitulo)
+    public function show($obraId, $capituloId)
     {
+        $obra = Obra::findOrFail($obraId);
+        $capitulo = Capitulo::with('feedbacks')->findOrFail($capituloId);
         return response()->json(["capitulo" => $capitulo, "obra" => $obra]);
     }
 
