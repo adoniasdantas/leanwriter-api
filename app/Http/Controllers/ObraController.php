@@ -21,7 +21,7 @@ class obraController extends Controller
      */
     public function index()
     {
-        return response()->json(['obras' => Obra::all()->jsonSerialize()]);
+        return response()->json(['obras' => Obra::with('autor')->get()->jsonSerialize()]);
     }
 
     /**
