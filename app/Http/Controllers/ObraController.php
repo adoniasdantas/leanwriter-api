@@ -58,8 +58,9 @@ class obraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Obra $obra)
+    public function show($obraId)
     {
+        $obra = Obra::with('autor')->findOrFail($obraId);
         return response()->json(['obra' => $obra->jsonSerialize()]);
     }
 
