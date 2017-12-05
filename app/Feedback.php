@@ -14,4 +14,9 @@ class Feedback extends Model
     {
         return $this->belongsTo(Capitulo::class);
     }
+
+    public function autor()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -21,7 +21,7 @@ class FeedbackController extends Controller
      */
     public function index($obra_id, $capitulo_id)
     {
-        $capitulo = Capitulo::with("feedbacks")->findOrFail($capitulo_id);
+        $capitulo = Capitulo::with("feedbacks.autor")->findOrFail($capitulo_id);
 
         return response()->json(["capitulo" => $capitulo]);
     }
@@ -65,7 +65,8 @@ class FeedbackController extends Controller
         return response()->json([
             "obra" => $obra,
             "capitulo" => $capitulo,
-            "feedback" => $feedback
+            "feedback" => $feedback,
+            "autor" => $feedback->autor,
         ]);
     }
 
