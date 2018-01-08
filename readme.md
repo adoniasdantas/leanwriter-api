@@ -19,9 +19,9 @@ Integrantes:
 
 ## Documentação
 
-A documentação da API está hospedada neste <a href="docs.leanwriter.apiary.io">link</a>.
+A documentação da API está hospedada neste <a href="https://leanwriter.docs.apiary.io">link</a>.
 
 ## Hospedagem
 
-A API está hospedada neste <a href="leanwriter-api.herokuapp.com">link</a>.
+A API está hospedada neste <a href="https://leanwriter-api.herokuapp.com/">link</a>.
 
