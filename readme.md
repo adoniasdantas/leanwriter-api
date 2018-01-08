@@ -17,3 +17,11 @@ Integrantes:
 - Mateus Silva Soares
 - Wendell Edgard da Silva Araújo
 
+## Documentação
+
+A documentação da API está hospedada neste <a href="docs.leanwriter.apiary.io">link</a>.
+
+## Hospedagem
+
+A API está hospedada neste <a href="leanwriter-api.herokuapp.com">link</a>.
+
