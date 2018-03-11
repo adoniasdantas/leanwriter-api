@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Capitulo extends Model
 {
-    protected $fillable = ['obra_id', 'numero', 'titulo', 'texto'];
+    protected $fillable = ['obra_id', 'titulo', 'texto'];
 
     public function obra()
     {
