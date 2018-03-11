@@ -15,7 +15,7 @@ class CreateObrasTable extends Migration
     {
         Schema::create('obras', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('titulo');
+            $table->text('titulo');
             $table->text('descricao');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

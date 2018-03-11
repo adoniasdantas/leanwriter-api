@@ -16,8 +16,7 @@ class CreateCapitulosTable extends Migration
         Schema::create('capitulos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('obra_id')->unsigned();
-            $table->integer('numero')->unsigned();
-            $table->string('titulo');
+            $table->text('titulo');
             $table->text('texto');
 
             $table->foreign('obra_id')->references('id')->on('obras')->onDelete('cascade');
