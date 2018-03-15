@@ -49,7 +49,7 @@ class obraController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return response()->json(['obra' =>$obra], 201);
+        return response()->json(['obra' =>$obra, "mensagem" => "Obra criada com sucesso!"], 201);
     }
 
     /**
@@ -91,7 +91,7 @@ class obraController extends Controller
             'descricao' => $request->get('descricao'),
         ]);
 
-        return response()->json(['obra' =>$obra], 201);
+        return response()->json(['obra' =>$obra, "mensagem" => "Obra editada com sucesso!"], 200);
 
     }
 
@@ -107,6 +107,6 @@ class obraController extends Controller
 
         $obra->delete();
 
-        return 204;
+        return response()->json(["mensagem" => "Obra excluída com sucesso!"], 200);
     }
 }
