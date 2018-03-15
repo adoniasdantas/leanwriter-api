@@ -45,13 +45,12 @@ class CapituloController extends Controller
     public function store(Request $request, Obra $obra)
     {
         $capitulo = Capitulo::create([
-            'numero' => $request->get('numero'),
             'titulo' => $request->get('titulo'),
             'texto' => $request->get('texto'),
             'obra_id' => $obra->id,
         ]);
 
-        return response()->json(["capitulo" => $capitulo, "obra" => $obra]);
+        return response()->json(["capitulo" => $capitulo, "obra" => $obra, "mensagem" => "Capítulo criado com sucesso!"], 201);
     }
 
     /**
@@ -88,12 +87,11 @@ class CapituloController extends Controller
     public function update(Request $request, Obra $obra, Capitulo $capitulo)
     {
         $capitulo->update([
-            'numero' => $request->get('numero'),
             'titulo' => $request->get('titulo'),
             'texto' => $request->get('texto'),
         ]);
 
-        return response()->json(["capitulo" => $capitulo, "obra" => $obra]);
+        return response()->json(["capitulo" => $capitulo, "obra" => $obra, "mensagem" => "Capítulo editado com sucesso!"], 200);
     }
 
     /**
@@ -106,6 +104,6 @@ class CapituloController extends Controller
     {
         $capitulo->delete();
 
-        return 204;
+        return response()->json(["mensagem" => "Capítulo excluído com sucesso!"], 200);
     }
 }
