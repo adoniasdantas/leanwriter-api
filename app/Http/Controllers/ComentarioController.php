@@ -52,7 +52,7 @@ class ComentarioController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return response()->json(["comentario" => $comentario, "obra" => $obra]);
+        return response()->json(["comentario" => $comentario, "obra" => $obra, "mensagem" => "Comentário criado com sucesso!"], 201);
     }
 
     /**
@@ -95,7 +95,7 @@ class ComentarioController extends Controller
             'texto' => $request->get('texto'),
         ]);
 
-        return response()->json(["comentario" => $comentario, "obra" => $obra]);
+        return response()->json(["comentario" => $comentario, "obra" => $obra, "mensagem" => "Comentário editado com sucesso!"], 200);
     }
 
     /**
@@ -108,6 +108,6 @@ class ComentarioController extends Controller
     {
         $comentario->delete();
 
-        return 204;
+        return response()->json(["mensagem" => "Comentário excluído com sucesso!"], 200);
     }
 }
