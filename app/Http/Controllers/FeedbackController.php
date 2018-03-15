@@ -51,7 +51,7 @@ class FeedbackController extends Controller
             'capitulo_id' => $capitulo->id,
         ]);
 
-        return response()->json(["capitulo" => $capitulo, "feedback" => $feedback]);
+        return response()->json(["capitulo" => $capitulo, "feedback" => $feedback, "mensagem" => "Feedback criado com sucesso!"], 201);
     }
 
     /**
@@ -97,8 +97,9 @@ class FeedbackController extends Controller
         return response()->json([
             "obra" => $obra,
             "capitulo" => $capitulo,
-            "feedback" => $feedback
-        ]);
+            "feedback" => $feedback,
+            "mensagem" => "Feedback editado com sucesso!"
+        ], 200);
     }
 
     /**
@@ -111,6 +112,6 @@ class FeedbackController extends Controller
     {
         $feedback->delete();
 
-        return 204;
+        return response()->json(["mensagem" => "Feedback excluido com sucesso!"], 200);
     }
 }
