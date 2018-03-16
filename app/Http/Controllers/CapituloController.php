@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Capitulo;
 use App\Obra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CapituloController extends Controller
 {
@@ -12,6 +13,20 @@ class CapituloController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index', 'show']);
+    }
+
+    public function rules() {
+        return [
+            'titulo' => 'required',
+            'texto' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório'
+        ];
     }
 
     /**
@@ -44,6 +59,12 @@ class CapituloController extends Controller
      */
     public function store(Request $request, Obra $obra)
     {
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
         $capitulo = Capitulo::create([
             'titulo' => $request->get('titulo'),
             'texto' => $request->get('texto'),
@@ -86,6 +107,12 @@ class CapituloController extends Controller
      */
     public function update(Request $request, Obra $obra, Capitulo $capitulo)
     {
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
         $capitulo->update([
             'titulo' => $request->get('titulo'),
             'texto' => $request->get('texto'),
