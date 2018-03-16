@@ -7,12 +7,26 @@ use App\User;
 use App\Comentario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ComentarioController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index', 'show']);
+    }
+
+    public function rules() {
+        return [
+            'texto' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório'
+        ];
     }
 
     /**
@@ -46,6 +60,13 @@ class ComentarioController extends Controller
     public function store(Request $request, Obra $obra)
     {
         $user = Auth::guard('api')->user();
+
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
         $comentario = Comentario::create([
             'texto' => $request->get('texto'),
             'obra_id' => $obra->id,
@@ -91,6 +112,12 @@ class ComentarioController extends Controller
      */
     public function update(Request $request, Obra $obra, Comentario $comentario)
     {
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
         $comentario->update([
             'texto' => $request->get('texto'),
         ]);
