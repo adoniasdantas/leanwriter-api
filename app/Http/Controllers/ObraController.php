@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Obra;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,20 @@ class obraController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index', 'show']);
+    }
+
+    public function rules() {
+        return [
+            'titulo' => 'required',
+            'descricao' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório'
+        ];
     }
 
     /**
@@ -43,6 +58,13 @@ class obraController extends Controller
     public function store(Request $request)
     {
         $user = Auth::guard('api')->user();
+
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
         $obra = Obra::create([
             'titulo' => $request->get('titulo'),
             'descricao' => $request->get('descricao'),
@@ -85,6 +107,12 @@ class obraController extends Controller
     public function update(Request $request, $id)
     {
         $obra = Obra::findOrFail($id);
+
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
 
         $obra->update([
             'titulo' => $request->get('titulo'),
