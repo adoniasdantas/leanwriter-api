@@ -7,6 +7,7 @@ use App\Capitulo;
 use App\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FeedbackController extends Controller
 {
@@ -14,6 +15,20 @@ class FeedbackController extends Controller
     {
         $this->middleware('auth:api')->except(['index', 'show']);
     }
+
+    public function rules() {
+        return [
+            'texto' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório'
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,6 +60,13 @@ class FeedbackController extends Controller
     public function store(Request $request, Obra $obra, Capitulo $capitulo)
     {
         $user = Auth::guard('api')->user();
+
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
         $feedback = Feedback::create([
             'texto' => $request->get('texto'),
             'user_id' => $user->id,
@@ -90,6 +112,12 @@ class FeedbackController extends Controller
      */
     public function update(Request $request, Obra $obra, Capitulo $capitulo, Feedback $feedback)
     {
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if ($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
         $feedback->update([
             'texto' => $request->get('texto'),
         ]);
