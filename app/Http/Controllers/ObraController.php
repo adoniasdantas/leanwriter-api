@@ -71,7 +71,9 @@ class obraController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return response()->json(['obra' =>$obra, "mensagem" => "Obra criada com sucesso!"], 201);
+        return response()->json([
+            'obra' => ["titulo" => $obra->titulo, "descricao" => $obra->descricao, "user_id" => $user->id],
+            "mensagem" => "Obra criada com sucesso!"], 201);
     }
 
     /**
