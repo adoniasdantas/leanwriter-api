@@ -121,7 +121,9 @@ class obraController extends Controller
             'descricao' => $request->get('descricao'),
         ]);
 
-        return response()->json(['obra' =>$obra, "mensagem" => "Obra editada com sucesso!"], 200);
+        return response()->json([
+            'obra' => ["titulo" => $obra->titulo, "descricao" => $obra->descricao, "user_id" => $obra->user_id],
+            "mensagem" => "Obra editada com sucesso!"], 200);
 
     }
 
