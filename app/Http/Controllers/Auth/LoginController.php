@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -39,6 +40,21 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function rules()
+    {
+        return [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório'
+        ];
+    }
+
     /**
      * Handle a login request to the application.
      *
@@ -47,7 +63,13 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        $this->validateLogin($request);
+//        $this->validateLogin($request);
+
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
