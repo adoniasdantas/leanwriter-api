@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -30,6 +31,26 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório',
+            'unique' => 'O campo :attribute não pode ser usado',
+            'email' => 'O campo :attribute deve ter formato de email',
+            'confirmed' => 'O campo :attribute não combina',
+            'min' => 'O campo :attribute deve ter no mínimo :min caracteres'
+        ];
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -53,6 +74,30 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+//        $this->validator($request->all())->validate();
+
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+
+        if($validator->fails()) {
+            return response()->json(["mensagem" => $validator->errors()], 422);
+        }
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 
     /**
