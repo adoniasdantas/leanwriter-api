@@ -133,4 +133,27 @@ class CapituloController extends Controller
 
         return response()->json(["mensagem" => "Capítulo excluído com sucesso!"], 200);
     }
+
+    public function like($obraId, $capituloId)
+    {
+        $capitulo = Capitulo::findOrFail($capituloId);
+
+        $capitulo->likes++;
+
+        $capitulo->save();
+
+        return response()->json(["mensagem" => "Sua curtida foi contabilizada com sucesso!"]);
+    }
+
+    public function dislike($obraId, $capituloId)
+    {
+        $capitulo = Capitulo::findOrFail($capituloId);
+
+        $capitulo->dislikes++;
+
+        $capitulo->save();
+
+        return response()->json(["mensagem" => "Sua critica foi contabilizada com sucesso!"]);
+    }
+
 }
