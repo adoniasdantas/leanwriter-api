@@ -141,4 +141,27 @@ class obraController extends Controller
 
         return response()->json(["mensagem" => "Obra excluída com sucesso!"], 200);
     }
+
+    public function like($id)
+    {
+        $obra = Obra::findOrFail($id);
+
+        $obra->likes++;
+
+        $obra->save();
+
+        return response()->json(["mensagem" => "Sua curtida foi contabilizada com sucesso!"], 200);
+
+    }
+
+    public function dislike($id)
+    {
+        $obra = Obra::findOrFail($id);
+
+        $obra->dislikes++;
+
+        $obra->save();
+
+        return response()->json(["mensagem" => "Sua critica foi contabilizada com sucesso!"], 200);
+    }
 }

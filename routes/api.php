@@ -24,4 +24,6 @@ Route::group(['prefix' => '/v1'], function() {
     Route::post('register', 'Auth\RegisterController@register')->middleware('guest');
     Route::post('login', 'Auth\LoginController@login')->middleware('guest');
     Route::post('logout', 'Auth\LoginController@logout')->middleware('auth:api');
+    Route::post('obras/{Obra}/like', 'ObraController@like');
+    Route::post('obras/{Obra}/dislike', 'ObraController@dislike');
 });
