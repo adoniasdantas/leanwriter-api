@@ -137,4 +137,26 @@ class ComentarioController extends Controller
 
         return response()->json(["mensagem" => "Comentário excluído com sucesso!"], 200);
     }
+
+    public function like($obraId, $comentarioId)
+    {
+        $comentario = Comentario::findOrFail($comentarioId);
+
+        $comentario->likes++;
+
+        $comentario->save();
+
+        return response()->json(["mensagem" => "Sua curtida foi contabilizada com sucesso!"]);
+    }
+
+    public function dislike($obraId, $comentarioId)
+    {
+        $comentario = Comentario::findOrFail($comentarioId);
+
+        $comentario->dislikes++;
+
+        $comentario->save();
+
+        return response()->json(["mensagem" => "Sua critica foi contabilizada com sucesso!"]);
+    }
 }

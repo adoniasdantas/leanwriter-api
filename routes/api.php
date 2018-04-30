@@ -20,6 +20,8 @@ Route::group(['prefix' => '/v1'], function() {
     Route::post('obras/{Obra}/dislike', 'ObraController@dislike');
     Route::post('obras/{Obra}/capitulos/{Capitulo}/like', 'CapituloController@like');
     Route::post('obras/{Obra}/capitulos/{Capitulo}/dislike', 'CapituloController@dislike');
+    Route::post('obras/{Obra}/comentarios/{Comentario}/like', 'ComentarioController@like');
+    Route::post('obras/{Obra}/comentarios/{Comentario}/dislike', 'ComentarioController@dislike');
     Route::resource('obras', 'ObraController');
     Route::resource('obras.capitulos', 'CapituloController');
     Route::resource('obras.comentarios', 'ComentarioController');
