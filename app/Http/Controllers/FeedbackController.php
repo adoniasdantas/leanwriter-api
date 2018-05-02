@@ -142,4 +142,26 @@ class FeedbackController extends Controller
 
         return response()->json(["mensagem" => "Feedback excluido com sucesso!"], 200);
     }
+
+    public function like($obraId, $capituloId, $feedbackId)
+    {
+        $feedback = Feedback::findOrFail($feedbackId);
+
+        $feedback->likes++;
+
+        $feedback->save();
+
+        return response()->json(["mensagem" => "Sua curtida foi contabilizada com sucesso!"]);
+    }
+
+    public function dislike($obraId, $capituloId, $feedbackId)
+    {
+        $feedback = Feedback::findOrFail($feedbackId);
+
+        $feedback->dislikes++;
+
+        $feedback->save();
+
+        return response()->json(["mensagem" => "Sua critica foi contabilizada com sucesso!"]);
+    }
 }
