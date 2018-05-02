@@ -115,4 +115,17 @@ class LoginController extends Controller
         return response()->json(['usuario' => 'Usuário deslogado.'], 200);
 
     }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return response()->json(["mensagem" => "Usuario e/ou password incorreto(s)"]);
+    }
 }
