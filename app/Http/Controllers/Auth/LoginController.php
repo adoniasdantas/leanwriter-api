@@ -126,6 +126,6 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        return response()->json(["mensagem" => "Usuario e/ou password incorreto(s)"], 403);
+        return response()->json(["mensagem" => ["erro" => ["Usuario e/ou password incorreto(s)"]]], 403);
     }
 }
