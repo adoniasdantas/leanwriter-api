@@ -28,4 +28,15 @@ class Obra extends Model
     {
         return $this->hasMany(Comentario::class);
     }
+
+    public function usersCurtiram()
+    {
+        return $this->belongsToMany(User::class, 'obra_likes', 'obra_id', 'user_id');
+    }
+
+    public function usersDescurtiram()
+    {
+        return $this->belongsToMany(User::class, 'obra_dislikes', 'obra_id', 'user_id');
+    }
+
 }

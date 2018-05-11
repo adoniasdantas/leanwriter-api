@@ -38,4 +38,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Obra::class);
     }
+
+    public function obrasCurtidas()
+    {
+        return $this->belongsToMany(Obra::class, 'obra_likes', 'user_id', 'obra_id');
+    }
+
+    public function obrasDescurtidas()
+    {
+        return $this->belongsToMany(Obra::class, 'obra_dislikes', 'user_id', 'obra_id');
+    }
+
 }

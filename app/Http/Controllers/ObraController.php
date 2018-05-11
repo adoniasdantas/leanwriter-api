@@ -13,6 +13,8 @@ class obraController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('userCurtiu')->only(['like']);
+        $this->middleware('userDescurtiu')->only(['dislike']);
     }
 
     public function rules() {
@@ -142,11 +144,13 @@ class obraController extends Controller
         return response()->json(["mensagem" => "Obra excluída com sucesso!"], 200);
     }
 
-    public function like($id)
+    public function like(Request $request, $id)
     {
+        $user = Auth::guard('api')->user();
+
         $obra = Obra::findOrFail($id);
 
-        $obra->likes++;
+        $obra->usersCurtiram()->sync($user->id);
 
         $obra->save();
 
@@ -156,9 +160,11 @@ class obraController extends Controller
 
     public function dislike($id)
     {
+        $user = Auth::guard('api')->user();
+
         $obra = Obra::findOrFail($id);
 
-        $obra->dislikes++;
+        $obra->usersDescurtiram()->sync($user->id);
 
         $obra->save();
 
