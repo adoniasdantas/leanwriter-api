@@ -14,6 +14,8 @@ class FeedbackController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('userCurtiuFeedback')->only(['like']);
+        $this->middleware('userDescurtiuFeedback')->only(['dislike']);
     }
 
     public function rules() {
@@ -145,9 +147,11 @@ class FeedbackController extends Controller
 
     public function like($obraId, $capituloId, $feedbackId)
     {
+        $user = Auth::guard('api')->user();
+
         $feedback = Feedback::findOrFail($feedbackId);
 
-        $feedback->likes++;
+        $feedback->usersCurtiram()->sync($user->id);
 
         $feedback->save();
 
@@ -156,9 +160,11 @@ class FeedbackController extends Controller
 
     public function dislike($obraId, $capituloId, $feedbackId)
     {
+        $user = Auth::guard('api')->user();
+
         $feedback = Feedback::findOrFail($feedbackId);
 
-        $feedback->dislikes++;
+        $feedback->usersDescurtiram()->sync($user->id);
 
         $feedback->save();
 

@@ -19,4 +19,14 @@ class Feedback extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function usersCurtiram()
+    {
+        return $this->belongsToMany(User::class, 'feedback_likes', 'feedback_id', 'user_id');
+    }
+
+    public function usersDescurtiram()
+    {
+        return $this->belongsToMany(User::class, 'feedback_dislikes', 'feedback_id', 'user_id');
+    }
 }
