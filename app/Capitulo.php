@@ -17,4 +17,14 @@ class Capitulo extends Model
     {
         return $this->hasMany(Feedback::class);
     }
+
+    public function usersCurtiram()
+    {
+        return $this->belongsToMany(User::class, 'capitulo_likes', 'capitulo_id', 'user_id');
+    }
+
+    public function usersDescurtiram()
+    {
+        return $this->belongsToMany(User::class, 'capitulo_dislikes', 'capitulo_id', 'user_id');
+    }
 }

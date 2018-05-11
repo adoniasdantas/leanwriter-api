@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Capitulo;
 use App\Obra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CapituloController extends Controller
@@ -13,6 +14,8 @@ class CapituloController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('userCurtiuCapitulo')->only(['like']);
+        $this->middleware('userDescurtiuCapitulo')->only(['dislike']);
     }
 
     public function rules() {
@@ -136,9 +139,11 @@ class CapituloController extends Controller
 
     public function like($obraId, $capituloId)
     {
+        $user = Auth::guard('api')->user();
+
         $capitulo = Capitulo::findOrFail($capituloId);
 
-        $capitulo->likes++;
+        $capitulo->usersCurtiram()->sync($user->id);
 
         $capitulo->save();
 
@@ -147,9 +152,11 @@ class CapituloController extends Controller
 
     public function dislike($obraId, $capituloId)
     {
+        $user = Auth::guard('api')->user();
+
         $capitulo = Capitulo::findOrFail($capituloId);
 
-        $capitulo->dislikes++;
+        $capitulo->usersDescurtiram()->sync($user->id);
 
         $capitulo->save();
 

@@ -60,5 +60,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'userCurtiu' => \App\Http\Middleware\UserCurtiuObra::class,
         'userDescurtiu' => \App\Http\Middleware\UserDescurtiuObra::class,
+        'userCurtiuCapitulo' => \App\Http\Middleware\UserCurtiuCapitulo::class,
+        'userDescurtiuCapitulo' => \App\Http\Middleware\UserDescurtiuCapitulo::class,
     ];
 }
