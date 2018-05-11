@@ -21,4 +21,14 @@ class Comentario extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function usersCurtiram()
+    {
+        return $this->belongsToMany(User::class, 'comentario_likes', 'comentario_id', 'user_id');
+    }
+
+    public function usersDescurtiram()
+    {
+        return $this->belongsToMany(User::class, 'comentario_dislikes', 'comentario_id', 'user_id');
+    }
 }

@@ -62,5 +62,8 @@ class Kernel extends HttpKernel
         'userDescurtiu' => \App\Http\Middleware\UserDescurtiuObra::class,
         'userCurtiuCapitulo' => \App\Http\Middleware\UserCurtiuCapitulo::class,
         'userDescurtiuCapitulo' => \App\Http\Middleware\UserDescurtiuCapitulo::class,
+        'userCurtiuComentario' => \App\Http\Middleware\UserCurtiuComentario::class,
+        'userDescurtiuComentario' => \App\Http\Middleware\UserDescurtiuComentario::class,
+
     ];
 }

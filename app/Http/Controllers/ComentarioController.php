@@ -14,6 +14,8 @@ class ComentarioController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('userCurtiuComentario')->only(['like']);
+        $this->middleware('userDescurtiuComentario')->only(['dislike']);
     }
 
     public function rules() {
@@ -140,9 +142,11 @@ class ComentarioController extends Controller
 
     public function like($obraId, $comentarioId)
     {
+        $user = Auth::guard('api')->user();
+
         $comentario = Comentario::findOrFail($comentarioId);
 
-        $comentario->likes++;
+        $comentario->usersCurtiram()->sync($user->id);
 
         $comentario->save();
 
@@ -151,9 +155,11 @@ class ComentarioController extends Controller
 
     public function dislike($obraId, $comentarioId)
     {
+        $user = Auth::guard('api')->user();
+
         $comentario = Comentario::findOrFail($comentarioId);
 
-        $comentario->dislikes++;
+        $comentario->usersDescurtiram()->sync($user->id);
 
         $comentario->save();
 
