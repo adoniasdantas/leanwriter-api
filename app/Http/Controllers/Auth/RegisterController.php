@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -118,6 +119,10 @@ class RegisterController extends Controller
     protected function registered(Request $request, User $user)
     {
         $user->generateToken();
+
+        Mail::send('users.mails.welcome', ['name' => $user->name], function($message) use ($user) {
+            $message->to($user->email)->subject("Welcome to LeanWriter");
+        });
 
         return response()->json(['usuario' => $user->toArray(), 'mensagem' => 'Usuário cadastrado com sucesso'], 201);
     }
