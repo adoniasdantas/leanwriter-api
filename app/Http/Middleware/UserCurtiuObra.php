@@ -21,7 +21,7 @@ class UserCurtiuObra
         $userId = Auth::guard('api')->user()->id;
 
         if($obra->usersCurtiram->contains($userId)) {
-            return response()->json(["mensagem" => "Você já curtiu esta Obra"], 403);
+            return response()->json(["mensagem" => ["erro" => ["Você já curtiu esta Obra"]]], 403);
         }
 
         return $next($request);
