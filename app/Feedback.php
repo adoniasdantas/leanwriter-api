@@ -8,6 +8,8 @@ class Feedback extends Model
 {
     protected $table = 'feedback';
 
+    protected $appends = ['likes', 'dislikes'];
+
     protected $fillable = ['texto', 'capitulo_id', 'user_id'];
 
     public function capitulo()
@@ -28,5 +30,15 @@ class Feedback extends Model
     public function usersDescurtiram()
     {
         return $this->belongsToMany(User::class, 'feedback_dislikes', 'feedback_id', 'user_id');
+    }
+
+    public function getLikesAttribute()
+    {
+        return $this->usersCurtiram()->count();
+    }
+
+    public function getDislikesAttribute()
+    {
+        return $this->usersDescurtiram()->count();
     }
 }

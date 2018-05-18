@@ -10,6 +10,8 @@ class Comentario extends Model
 {
     protected $table = 'comentarios';
 
+    protected $appends = ['likes', 'dislikes'];
+
     protected $fillable = ['texto', 'obra_id', 'user_id'];
 
     public function obra()
@@ -30,5 +32,15 @@ class Comentario extends Model
     public function usersDescurtiram()
     {
         return $this->belongsToMany(User::class, 'comentario_dislikes', 'comentario_id', 'user_id');
+    }
+
+    public function getLikesAttribute()
+    {
+        return $this->usersCurtiram()->count();
+    }
+
+    public function getDislikesAttribute()
+    {
+        return $this->usersDescurtiram()->count();
     }
 }

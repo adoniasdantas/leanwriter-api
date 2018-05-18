@@ -8,6 +8,8 @@ class Capitulo extends Model
 {
     protected $fillable = ['obra_id', 'titulo', 'texto'];
 
+    protected $appends = ['likes', 'dislikes'];
+
     public function obra()
     {
         return $this->belongsTo(Obra::class);
@@ -26,5 +28,15 @@ class Capitulo extends Model
     public function usersDescurtiram()
     {
         return $this->belongsToMany(User::class, 'capitulo_dislikes', 'capitulo_id', 'user_id');
+    }
+
+    public function getLikesAttribute()
+    {
+        return $this->usersCurtiram()->count();
+    }
+
+    public function getDislikesAttribute()
+    {
+        return $this->usersDescurtiram()->count();
     }
 }

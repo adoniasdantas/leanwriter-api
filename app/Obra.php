@@ -9,6 +9,8 @@ class Obra extends Model
 
     public $fillable = ['titulo', 'descricao', 'user_id'];
 
+    protected $appends = ['likes', 'dislikes'];
+
     public function autor()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -37,6 +39,16 @@ class Obra extends Model
     public function usersDescurtiram()
     {
         return $this->belongsToMany(User::class, 'obra_dislikes', 'obra_id', 'user_id');
+    }
+
+    public function getLikesAttribute()
+    {
+        return $this->usersCurtiram()->count();
+    }
+
+    public function getDislikesAttribute()
+    {
+        return $this->usersDescurtiram()->count();
     }
 
 }
