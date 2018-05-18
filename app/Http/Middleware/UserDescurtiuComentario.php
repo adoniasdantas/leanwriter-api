@@ -21,7 +21,7 @@ class UserDescurtiuComentario
         $userId = Auth::guard('api')->user()->id;
 
         if($comentario->usersDescurtiram->contains($userId)) {
-            return response()->json(["mensagem" => "Você já descurtiu esta Comentario"], 403);
+            return response()->json(["mensagem" => ["erro" => ["Você já descurtiu este Comentário"]]], 403);
         }
 
         return $next($request);

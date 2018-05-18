@@ -21,7 +21,7 @@ class UserDescurtiuCapitulo
         $userId = Auth::guard('api')->user()->id;
 
         if($capitulo->usersDescurtiram->contains($userId)) {
-            return response()->json(["mensagem" => "Você já descurtiu este Capítulo"], 403);
+            return response()->json(["mensagem" => ["erro" => ["Você já descurtiu este Capítulo"]]], 403);
         }
 
         return $next($request);

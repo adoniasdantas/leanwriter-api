@@ -21,7 +21,7 @@ class UserDescurtiuFeedback
         $userId = Auth::guard('api')->user()->id;
 
         if($feedback->usersDescurtiram->contains($userId)) {
-            return response()->json(["mensagem" => "Você já curtiu este Feedback"], 403);
+            return response()->json(["mensagem" => ["erro" => ["Você já curtiu este Feedback"]]], 403);
         }
         return $next($request);
     }
