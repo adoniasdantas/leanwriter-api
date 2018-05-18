@@ -21,7 +21,7 @@ class UserDescurtiuObra
         $userId = Auth::guard('api')->user()->id;
 
         if($obra->usersDescurtiram->contains($userId)) {
-            return response()->json(["mensagem" => "Você já descurtiu esta Obra"], 403);
+            return response()->json(["mensagem" => ["erro" => ["Você já descurtiu esta Obra"]]], 403);
         }
 
         return $next($request);
