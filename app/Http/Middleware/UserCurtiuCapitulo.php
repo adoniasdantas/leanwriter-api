@@ -21,7 +21,8 @@ class UserCurtiuCapitulo
         $userId = Auth::guard('api')->user()->id;
 
         if($capitulo->usersCurtiram->contains($userId)) {
-            return response()->json(["mensagem" => "Você já curtiu este Capítulo"], 403);
+            return response()->json(["mensagem" => ["erro" => ["Você já curtiu este Capítulo"]]], 403);
+
         }
 
         return $next($request);
