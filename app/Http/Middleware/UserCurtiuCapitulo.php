@@ -20,6 +20,10 @@ class UserCurtiuCapitulo
         $capitulo = Capitulo::findOrFail($request->route('Capitulo'));
         $userId = Auth::guard('api')->user()->id;
 
+        if($capitulo->usersDescurtiram->contains($userId)) {
+            return response()->json(["mensagem" => ["erro" => ["Você não pode curtir e descurtir o mesmo Capítulo"]]], 403);
+        }
+
         if($capitulo->usersCurtiram->contains($userId)) {
             return response()->json(["mensagem" => ["erro" => ["Você já curtiu este Capítulo"]]], 403);
 

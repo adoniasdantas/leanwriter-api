@@ -20,6 +20,10 @@ class UserCurtiuFeedback
         $feedback = Feedback::findOrFail($request->route('Feedback'));
         $userId = Auth::guard('api')->user()->id;
 
+        if($feedback->usersDescurtiram->contains($userId)) {
+            return response()->json(["mensagem" => ["erro" => ["Você não pode curtir e descurtir o mesmo Feedback"]]], 403);
+        }
+
         if($feedback->usersCurtiram->contains($userId)) {
             return response()->json(["mensagem" => ["erro" => ["Você já curtiu este Feedback"]]], 403);
         }

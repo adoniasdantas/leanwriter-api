@@ -20,6 +20,10 @@ class UserCurtiuObra
         $obra = Obra::findOrFail($request->route('Obra'));
         $userId = Auth::guard('api')->user()->id;
 
+        if($obra->usersDescurtiram->contains($userId)) {
+            return response()->json(["mensagem" => ["erro" => ["Você não pode curtir e descurtir a mesma Obra"]]], 403);
+        }
+
         if($obra->usersCurtiram->contains($userId)) {
             return response()->json(["mensagem" => ["erro" => ["Você já curtiu esta Obra"]]], 403);
         }

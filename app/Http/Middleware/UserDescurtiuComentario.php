@@ -20,6 +20,10 @@ class UserDescurtiuComentario
         $comentario = Comentario::findOrFail($request->route('Comentario'));
         $userId = Auth::guard('api')->user()->id;
 
+        if($comentario->usersCurtiram->contains($userId)) {
+            return response()->json(["mensagem" => ["erro" => ["Você não pode curtir e descurtir o mesmo Comentário"]]], 403);
+        }
+
         if($comentario->usersDescurtiram->contains($userId)) {
             return response()->json(["mensagem" => ["erro" => ["Você já descurtiu este Comentário"]]], 403);
         }
