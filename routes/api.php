@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::group(['prefix' => '/v1'], function() {
 
+    Route::get('obras/minhas-obras', 'ObraController@minhasObras');
     Route::post('obras/{Obra}/like', 'ObraController@like');
     Route::post('obras/{Obra}/dislike', 'ObraController@dislike');
     Route::post('obras/{Obra}/capitulos/{Capitulo}/like', 'CapituloController@like');
@@ -34,4 +35,5 @@ Route::group(['prefix' => '/v1'], function() {
     Route::post('logout', 'Auth\LoginController@logout')->middleware('auth:api');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset');
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
 });

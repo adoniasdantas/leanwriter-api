@@ -170,4 +170,11 @@ class obraController extends Controller
 
         return response()->json(["mensagem" => "Sua critica foi contabilizada com sucesso!"], 200);
     }
+
+    public function minhasObras()
+    {
+        $user = Auth::guard('api')->user();
+
+        return response()->json(['obras' => $user->obras->jsonSerialize()]);
+    }
 }
