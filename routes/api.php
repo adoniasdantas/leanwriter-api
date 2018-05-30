@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Route::group(['prefix' => '/v1'], function() {
 
     Route::get('obras/minhas-obras', 'ObraController@minhasObras');
+    Route::get('obras/{Obra}/download', 'ObraController@download');
     Route::post('obras/{Obra}/like', 'ObraController@like');
     Route::post('obras/{Obra}/dislike', 'ObraController@dislike');
     Route::post('obras/{Obra}/capitulos/{Capitulo}/like', 'CapituloController@like');

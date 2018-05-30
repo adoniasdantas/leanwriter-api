@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Obra;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,7 @@ class obraController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('auth:api')->except(['index', 'show', 'download']);
         $this->middleware('userCurtiu')->only(['like']);
         $this->middleware('userDescurtiu')->only(['dislike']);
     }
@@ -177,4 +178,16 @@ class obraController extends Controller
 
         return response()->json(['obras' => $user->obras->jsonSerialize()]);
     }
+
+    public function download($obraId)
+    {
+
+        $obra = Obra::findOrFail($obraId);
+
+        $pdf = PDF::loadView('obras.download', ['obra' => $obra, 'capitulos' => $obra->capitulos]);
+
+        return $pdf->download($obra->titulo . ".pdf");
+
+    }
+
 }
