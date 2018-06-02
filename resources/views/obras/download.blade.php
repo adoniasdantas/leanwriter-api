@@ -23,6 +23,7 @@
 
         p{
             word-wrap: break-word;
+            hyphens: auto;
         }
 
     </style>
