@@ -22,11 +22,7 @@
         }
 
         p{
-            word-break: break-word;
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-            hyphens: auto;
+            word-wrap: break-word;
         }
 
     </style>
