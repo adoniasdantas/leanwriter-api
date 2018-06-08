@@ -151,7 +151,7 @@ class obraController extends Controller
 
         $obra = Obra::findOrFail($id);
 
-        $obra->usersCurtiram()->sync($user->id);
+        $obra->usersCurtiram()->attach($user->id);
 
         $obra->save();
 
@@ -165,7 +165,7 @@ class obraController extends Controller
 
         $obra = Obra::findOrFail($id);
 
-        $obra->usersDescurtiram()->sync($user->id);
+        $obra->usersDescurtiram()->attach($user->id);
 
         $obra->save();
 

@@ -151,7 +151,7 @@ class FeedbackController extends Controller
 
         $feedback = Feedback::findOrFail($feedbackId);
 
-        $feedback->usersCurtiram()->sync($user->id);
+        $feedback->usersCurtiram()->attach($user->id);
 
         $feedback->save();
 
@@ -164,7 +164,7 @@ class FeedbackController extends Controller
 
         $feedback = Feedback::findOrFail($feedbackId);
 
-        $feedback->usersDescurtiram()->sync($user->id);
+        $feedback->usersDescurtiram()->attach($user->id);
 
         $feedback->save();
 

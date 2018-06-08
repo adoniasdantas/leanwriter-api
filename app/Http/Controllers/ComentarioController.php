@@ -146,7 +146,7 @@ class ComentarioController extends Controller
 
         $comentario = Comentario::findOrFail($comentarioId);
 
-        $comentario->usersCurtiram()->sync($user->id);
+        $comentario->usersCurtiram()->attach($user->id);
 
         $comentario->save();
 
@@ -159,7 +159,7 @@ class ComentarioController extends Controller
 
         $comentario = Comentario::findOrFail($comentarioId);
 
-        $comentario->usersDescurtiram()->sync($user->id);
+        $comentario->usersDescurtiram()->attach($user->id);
 
         $comentario->save();
 

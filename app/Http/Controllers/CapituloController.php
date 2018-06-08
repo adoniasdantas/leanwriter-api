@@ -143,7 +143,7 @@ class CapituloController extends Controller
 
         $capitulo = Capitulo::findOrFail($capituloId);
 
-        $capitulo->usersCurtiram()->sync($user->id);
+        $capitulo->usersCurtiram()->attach($user->id);
 
         $capitulo->save();
 
@@ -156,7 +156,7 @@ class CapituloController extends Controller
 
         $capitulo = Capitulo::findOrFail($capituloId);
 
-        $capitulo->usersDescurtiram()->sync($user->id);
+        $capitulo->usersDescurtiram()->attach($user->id);
 
         $capitulo->save();
 
