@@ -21,6 +21,10 @@
             margin: 0 auto;
         }
 
+        p{
+            word-wrap: break-word;
+        }
+
     </style>
 </head>
 <body>
